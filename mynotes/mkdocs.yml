@@ -1,0 +1,16 @@
+site_name: My Docs
+site_description: personal notes about engineering
+site_author: jules matz
+
+nav:
+  - Home: index.md
+  - Mardown language: markdown.md
+  - Repository link: https://github.com/seluj01/notes#
+
+theme: readthedocs
+
+markdown_extensions:
+  - mdx_math
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
