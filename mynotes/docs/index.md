@@ -1,17 +1,27 @@
-# Welcome to MkDocs
+# Personal notes about engineering
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+## Objective
+* Find quickly often-used concepts/formulas/algorithms/code
+* Explain these concepts in my own words
+* Help me remember these concepts when I build these notes
 
-## Commands
+## Guidelines
+* Be efficient
+    - Only pursue what is approachable and interesting.
+    - Do it as you can, no perfection.
+* Store knowledge, not information
+    - Do not be thorough but concise, only what matters along with the though path I need to understand it
+* Write in my own words to myself
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## TODO
 
-## Project layout
+| Topic              | Details                    | Status      |
+|--------------------|----------------------------|-------------|
+| Algebra basics     | Matrix inv, inner prod,... | In Progress |
+| Kalman             | Proof, link to Luenberger  | Not Started |
+| ROS2               | For Kalman demo            | Not Started |
+| C++                | basics, eigen, opencv      | Not Started |
+| Optimization       | DIRECT,...                 | Not Started |
+| Information theory |                            | Not Started |
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+

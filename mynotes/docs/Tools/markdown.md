@@ -51,19 +51,17 @@ for `code`
 
 `[GitHub link](https://github.com)` for [GitHub link](https://github.com/)
 
-`[link with title](https://github.com/ "GitHub's Homepage")` for [link with title](https://github.com/ "GitHub's Homepage") when hovering mouse over
-
-URL also automatically get turned into links, for example, `http://www.example.com` for http://www.example.com and `<http://www.example.com>` for <http://www.example.com>.
-
 <a href="https://www.youtube.com/watch?v=fSytzGwwBVw" target="_blank"><img src="https://img.youtube.com/vi/fSytzGwwBVw/0.jpg" 
 alt="Machine Learning Fundamentals: Cross Validation" width="200" height="180" border="2" /></a>
 
 ### Local links
 `[Link to code section](#code)` for [Link to code section in other file](test002.md#code)
 
-`[reference to local file](img/random_var_weather.png)` for a [reference to local file](img/classmate.png)
+`![reference to local file](img/classmate.png)` for a [reference to local file](img/classmate.png)
 
-`![two people](img/classmate.png)` or better, to control image size, `<img src="img/classmate.png" alt="two people" width="200"/>` for <img src="img/classmate.png" alt="two people" width="200"/>
+`![two people](img/classmate.png)` for ![two people](img/classmate.png)
+
+or better, to control image size, `!<img src="img/classmate.png" alt="two people" width="200"/>` for <img src="img/classmate.png" alt="two people" width="200"/>
 
 
 ### Code
@@ -119,6 +117,10 @@ raw Markdown line up prettily. You can also use inline Markdown.
 
 
 ### Equations 
+For inline math, use `\( a \)` for \(a\)
+
+For equations, use `$$ $$`
+
 The Cauchy-Schwarz Inequality,
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
