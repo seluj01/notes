@@ -1,0 +1,26 @@
+site_name: My Docs
+site_url: httop://seluj01.github.io/notes/
+site_description: personal notes about engineering
+site_author: jules matz
+repo_url: https://github.com/seluj01/notes#
+
+theme: mkdocs
+
+nav:
+  - Algebra:
+      - matrix inversion: Algebra/matrix_inversion.md
+  - Geometry:
+    - Geometry2D:
+      - Geometry2D circle-circle intersection: Geometry2D/circle_circle_intersection.md
+  - Tools:
+    - Mardown language: Tools/markdown.md
+    - MkDocs: Tools/mkdocs.md
+
+markdown_extensions:
+  - mdx_math
+
+extra_javascript:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
+
+plugins:
+- search
