@@ -1,4 +1,4 @@
-Markdown cheatsheet
+Markdown
 ======
 highest title style has two possible synthax, `# Title` or
 ```

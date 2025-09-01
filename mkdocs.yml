@@ -1,5 +1,5 @@
-site_name: My Docs
-site_url: httop://seluj01.github.io/notes/
+site_name: Notes
+site_url: http://seluj01.github.io/notes/
 site_description: personal notes about engineering
 site_author: jules matz
 repo_url: https://github.com/seluj01/notes#
@@ -13,7 +13,7 @@ nav:
     - Geometry2D:
       - Geometry2D circle-circle intersection: Geometry2D/circle_circle_intersection.md
   - Tools:
-    - Mardown language: Tools/markdown.md
+    - Mardown: Tools/markdown.md
     - MkDocs: Tools/mkdocs.md
 
 markdown_extensions:
