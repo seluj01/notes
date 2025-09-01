@@ -1,5 +1,6 @@
 Markdown
 ======
+Check out [mkdocs-material](https://squidfunk.github.io/mkdocs-material/reference/) for many guides and plugins.
 highest title style has two possible synthax, `# Title` or
 ```
 Titles
@@ -55,13 +56,15 @@ for `code`
 alt="Machine Learning Fundamentals: Cross Validation" width="200" height="180" border="2" /></a>
 
 ### Local links
-`[Link to code section](#code)` for [Link to code section in other file](test002.md#code)
+`[Link to code section](#code)` for [Link to code section in other file](mkdocs.md#MkDocs)
 
 `![reference to local file](img/classmate.png)` for a [reference to local file](img/classmate.png)
 
 `![two people](img/classmate.png)` for ![two people](img/classmate.png)
 
-or better, to control image size, `!<img src="img/classmate.png" alt="two people" width="200"/>` for <img src="img/classmate.png" alt="two people" width="200"/>
+Using the attr_list extension, we can use markdown synthax and parameterize html elements,
+`![two people](img/classmate.png){: style="display: block; margin: 0 auto; width: 300px"}` for a centered image with specific width (height is automatically adjusted to keep ratio)
+![two people](img/classmate.png){: style="display: block; margin: 0 auto; width: 300px"}
 
 
 ### Code
@@ -123,6 +126,28 @@ For equations, use `$$ $$`
 
 The Cauchy-Schwarz Inequality,
 $$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
+
+Using extension mdx_math, aligned environment can be used,
+$$
+\begin{align}
+x &= y + z + j^{-1} \\
+a &= b + c
+\end{align}
+$$
+### blocks
+Using markdown extension `admonition`
+```md
+!!! note "Phasellus posuere in sem ut cursus"
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+```
+!!! note "Phasellus posuere in sem ut cursus"
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+
+You can use `note`, `abstract`, `info`, `tip`, `success`, `question`, `warning`, `failure`, `danger`, `bug`, `example`, `quote`.
+The title is optional.
+
 
 
 ### Collapsible sections

@@ -8,7 +8,9 @@ theme: mkdocs
 
 nav:
   - Algebra:
-      - matrix inversion: Algebra/matrix_inversion.md
+    - matrix inversion: Algebra/matrix_inversion.md
+  - Stats/Estim:
+    - Gaussian: StatsEstim/gaussian.md
   - Geometry:
     - Geometry2D:
       - Geometry2D circle-circle intersection: Geometry2D/circle_circle_intersection.md
@@ -17,7 +19,9 @@ nav:
     - MkDocs: Tools/mkdocs.md
 
 markdown_extensions:
-  - mdx_math
+  - mdx_math # for math
+  - attr_list # for images, used to pass html parameters like size
+  - admonition # for blocks
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
