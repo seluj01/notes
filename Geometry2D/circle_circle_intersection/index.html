@@ -4,27 +4,27 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="personal notes about engineering">
+        
         <meta name="author" content="jules matz">
-        <link rel="canonical" href="http://seluj01.github.io/notes/">
-        <link rel="shortcut icon" href="img/favicon.ico">
-        <title>Notes</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/fontawesome.min.css" rel="stylesheet">
-        <link href="css/brands.min.css" rel="stylesheet">
-        <link href="css/solid.min.css" rel="stylesheet">
-        <link href="css/v4-font-face.min.css" rel="stylesheet">
-        <link href="css/base.css" rel="stylesheet">
+        <link rel="canonical" href="http://seluj01.github.io/notes/Geometry2D/circle_circle_intersection/">
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Geometry2D circle-circle intersection - Notes</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
         <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
         <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
         <script>hljs.highlightAll();</script> 
     </head>
 
-    <body class="homepage">
+    <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href=".">Notes</a>
+                <a class="navbar-brand" href="../..">Notes</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,12 +39,12 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="Algebra/matrix_inversion/" class="dropdown-item">matrix inversion</a>
+    <a href="../../Algebra/matrix_inversion/" class="dropdown-item">matrix inversion</a>
 </li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Geometry</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Geometry</a>
                                 <ul class="dropdown-menu">
                                     
   <li class="dropdown-submenu">
@@ -52,7 +52,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="Geometry2D/circle_circle_intersection/" class="dropdown-item">Geometry2D circle-circle intersection</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Geometry2D circle-circle intersection</a>
 </li>
     </ul>
   </li>
@@ -63,11 +63,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="Tools/markdown/" class="dropdown-item">Mardown</a>
+    <a href="../../Tools/markdown/" class="dropdown-item">Mardown</a>
 </li>
                                     
 <li>
-    <a href="Tools/mkdocs/" class="dropdown-item">MkDocs</a>
+    <a href="../../Tools/mkdocs/" class="dropdown-item">MkDocs</a>
 </li>
                                 </ul>
                             </li>
@@ -80,7 +80,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a href="https://github.com/seluj01/notes/edit/master/docs/index.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a rel="prev" href="../../Algebra/matrix_inversion/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../Tools/markdown/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/seluj01/notes/edit/master/docs/Geometry2D/circle_circle_intersection.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -100,17 +110,13 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#personal-notes-about-engineering" class="nav-link">Personal notes about engineering</a>
+            <li class="nav-item" data-bs-level="1"><a href="#circle-circle-intersection" class="nav-link">Circle-circle intersection</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#objective" class="nav-link">Objective</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#guidelines" class="nav-link">Guidelines</a>
+            <li class="nav-item" data-bs-level="2"><a href="#solution" class="nav-link">Solution</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#todo" class="nav-link">TODO</a>
+            <li class="nav-item" data-bs-level="2"><a href="#derivation" class="nav-link">Derivation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -121,68 +127,100 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="personal-notes-about-engineering">Personal notes about engineering</h1>
-<h2 id="objective">Objective</h2>
-<ul>
-<li>Find quickly often-used concepts/formulas/algorithms/code</li>
-<li>Explain these concepts in my own words</li>
-<li>Help me remember these concepts when I build these notes</li>
-</ul>
-<h2 id="guidelines">Guidelines</h2>
-<ul>
-<li>Be efficient<ul>
-<li>Only pursue what is approachable and interesting.</li>
-<li>Do it as you can, no perfection.</li>
-</ul>
-</li>
-<li>Store knowledge, not information<ul>
-<li>Do not be thorough but concise, only what matters along with the though path I need to understand it</li>
-</ul>
-</li>
-<li>Write in my own words to myself</li>
-</ul>
-<h2 id="todo">TODO</h2>
-<table>
-<thead>
-<tr>
-<th>Topic</th>
-<th>Details</th>
-<th>Status</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Algebra basics</td>
-<td>Matrix inv, inner prod,...</td>
-<td>In Progress</td>
-</tr>
-<tr>
-<td>Kalman</td>
-<td>Proof, link to Luenberger</td>
-<td>Not Started</td>
-</tr>
-<tr>
-<td>ROS2</td>
-<td>For Kalman demo</td>
-<td>Not Started</td>
-</tr>
-<tr>
-<td>C++</td>
-<td>basics, eigen, opencv</td>
-<td>Not Started</td>
-</tr>
-<tr>
-<td>Optimization</td>
-<td>DIRECT,...</td>
-<td>Not Started</td>
-</tr>
-<tr>
-<td>Information theory</td>
-<td></td>
-<td>Not Started</td>
-</tr>
-</tbody>
-</table></div>
+<h1 id="circle-circle-intersection">Circle-circle intersection</h1>
+<p>Obtained from <a href="https://math.stackexchange.com/questions/256100/how-can-i-find-the-points-at-which-two-circles-intersect">math.stackexchange.com/questions/256100/</a>.</p>
+<h2 id="solution">Solution</h2>
+<p>Intersection points of a circle of radius <script type="math/tex">r_1</script> centered on <script type="math/tex">(x_1,y_1)</script> with another circle of radius <script type="math/tex">r_2</script> centered on <script type="math/tex">(x_2,y_2)</script>.</p>
+<p>The two intersection points are
+<script type="math/tex; mode=display">
+P_i = \begin{pmatrix}
+\frac{x_1+x_2}{2}\\
+\frac{y_1+y_2}{2}
+\end{pmatrix}
++\frac{r_1^2-r_2^2}{2R} \begin{pmatrix}
+\frac{x_1+x_2}{R}\\
+\frac{y_1+y_2}{R}
+\end{pmatrix}
+\pm \sqrt{\frac{r_1^2+r_2^2}{2} -\left(\frac{r_1^2-r_2^2}{4R}\right)^2-\frac{R^2}{4}} \begin{pmatrix}
+\frac{y_2+y_1}{R}\\
+\frac{x_1+x_1}{R}
+\end{pmatrix}
+</script>
+</p>
+<h2 id="derivation">Derivation</h2>
+<h3 id="get-to-an-easier-frame-for-solving">Get to an easier frame for solving</h3>
+<p>Compute the middle point
+<script type="math/tex; mode=display">C_m = \begin{pmatrix}
+\frac{x_1+x_2}{2}\\
+\frac{y_1+y_2}{2}
+\end{pmatrix}</script>
+and the distance between the two centers
+<script type="math/tex; mode=display"> R = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2} </script>
+Now consider the coordinate frame with origin at <script type="math/tex">C_m</script> and unit axes</p>
+<p>
+<script type="math/tex">\vec{a} = \begin{pmatrix}
+\frac{x_1+x_2}{R}\\
+\frac{y_1+y_2}{R}
+\end{pmatrix}</script>
+and
+<script type="math/tex">\vec{b} = \begin{pmatrix}
+\frac{y_2+y_1}{R}\\
+\frac{x_1+x_1}{R}
+\end{pmatrix}</script>
+</p>
+<p><img alt="two-circles-intersection" src="../img/geometry2D_circle_circle_intersection.png" /></p>
+<h3 id="equation-of-circles-in-new-coordinate-frame">Equation of circles in new coordinate frame</h3>
+<p>Usual equation of a circle is <script type="math/tex">(x-x_1)^2 + (y-y_1)^2 = r_1^2</script>, which is obtain from the Pythagorean theorem with <script type="math/tex">r_1</script> the hypothenuse and <script type="math/tex">(x-x_1)</script> and <script type="math/tex">(y-y_1)</script> its projection on <script type="math/tex">\vec{x}</script> and <script type="math/tex">\vec{y}</script> axes.</p>
+<p>Now in our case, the circles are centered along the dashed line so their centers have no <script type="math/tex">\vec{b}</script> component. Equations are
+<script type="math/tex; mode=display">(a+R/2)^2 + b^2 = r_1^2\\
+(a-R/2)^2 + b^2 = r_2^2</script>
+Equating the two circles equation, the intersection points are obtained in the <script type="math/tex">(\vec{a},\vec{b})</script> frame,
+<script type="math/tex; mode=display"> a =\frac{r_1^2-r_2^2}{2R}\\
+b = \sqrt{\frac{r_1^2+r_2^2}{2} -\left(\frac{r_1^2-r_2^2}{4R}\right)^2-\frac{R^2}{4}}</script>
+The two intersection points are thus
+<script type="math/tex; mode=display">P_i = C_m + a \vec{a} \pm b \vec{b}\\
+P_i =\begin{pmatrix}
+\frac{x_1+x_2}{2}\\
+\frac{y_1+y_2}{2}
+\end{pmatrix}
++a \begin{pmatrix}
+\frac{x_1+x_2}{R}\\
+\frac{y_1+y_2}{R}
+\end{pmatrix}
+\pm b \begin{pmatrix}
+\frac{y_2+y_1}{R}\\
+\frac{x_1+x_1}{R}
+\end{pmatrix}\\
+P_i = \begin{pmatrix}
+\frac{x_1+x_2}{2}\\
+\frac{y_1+y_2}{2}
+\end{pmatrix}
++\frac{r_1^2-r_2^2}{2R} \begin{pmatrix}
+\frac{x_1+x_2}{R}\\
+\frac{y_1+y_2}{R}
+\end{pmatrix}
+\pm \sqrt{\frac{r_1^2+r_2^2}{2} -\left(\frac{r_1^2-r_2^2}{4R}\right)^2-\frac{R^2}{4}} \begin{pmatrix}
+\frac{y_2+y_1}{R}\\
+\frac{x_1+x_1}{R}
+\end{pmatrix}
+</script>
+</p>
+<h3 id="check-for-existence">Check for existence</h3>
+<p>The intersection only exists if <script type="math/tex">R<r_1 + r_2</script> and <script type="math/tex">R>|r_2-r_1|</script> (with <script type="math/tex">|\cdot |</script> the notation for absolute value).</p>
+<details>
+First, \(a\) is obstained by subtracting the second to the first equation,
+
+$$(a+R/2)^2 - (a-R/2)^2 = r_1^2 - r_2^2\\
+a^2 + a R + (R/2)^2 - \left(a^2 - aR + (R/2)^2\right) = r_1^2-r_2^2\\
+a =\frac{r_1^2-r_2^2}{2R}$$
+
+Then \(b\) is obtained by adding the first and second equations,
+
+$$2b^2 = r_1^2+r_2^2 - (a+R/2)^2 - (a-R/2)^2\\
+2b^2 = r_1^2+r_2^2 -\left(\frac{r_1^2-r_2^2}{2R}\right)^2-\frac{r_1^2-r_2^2}{2} - R^2/4\\
+ - \left(\frac{r_1^2-r_2^2}{2R}\right)^2+\frac{r_1^2-r_2^2}{2} - R^2/4\\
+2b^2 = r_1^2+r_2^2 -2\left(\frac{r_1^2-r_2^2}{2R}\right)^2 - 2R^2/4\\
+b = \sqrt{\frac{r_1^2+r_2^2}{2} -\left(\frac{r_1^2-r_2^2}{4R}\right)^2-\frac{R^2}{4}}$$</div>
             </div>
         </div>
 
@@ -190,14 +228,14 @@
             <hr>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
-        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
         <script>
-            var base_url = ".",
+            var base_url = "../..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="js/base.js"></script>
+        <script src="../../js/base.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-        <script src="search/main.js"></script>
+        <script src="../../search/main.js"></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -262,8 +300,3 @@
 
     </body>
 </html>
-
-<!--
-MkDocs version : 1.6.1
-Build Date UTC : 2025-09-01 08:33:58.574832+00:00
--->

@@ -8,7 +8,7 @@
         <meta name="author" content="jules matz">
         <link rel="canonical" href="http://seluj01.github.io/notes/Tools/mkdocs/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>MkDocs - My Docs</title>
+        <title>MkDocs - Notes</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -24,7 +24,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../..">My Docs</a>
+                <a class="navbar-brand" href="../..">Notes</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -39,7 +39,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../Algebra/matrix_inversion.md" class="dropdown-item">matrix inversion</a>
+    <a href="../../Algebra/matrix_inversion/" class="dropdown-item">matrix inversion</a>
 </li>
                                 </ul>
                             </li>
@@ -52,7 +52,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../Geometry2D/circle_circle_intersection.md" class="dropdown-item">Geometry2D circle-circle intersection</a>
+    <a href="../../Geometry2D/circle_circle_intersection/" class="dropdown-item">Geometry2D circle-circle intersection</a>
 </li>
     </ul>
   </li>
@@ -63,7 +63,7 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../markdown/" class="dropdown-item">Mardown language</a>
+    <a href="../markdown/" class="dropdown-item">Mardown</a>
 </li>
                                     
 <li>
@@ -110,8 +110,12 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#deploy-site-mkdocs" class="nav-link">Deploy site - MkDocs</a>
+            <li class="nav-item" data-bs-level="1"><a href="#mkdocs" class="nav-link">MkDocs</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#deployment-of-mkdocs-site-on-github-pages" class="nav-link">Deployment of MkDocs site on GitHub Pages</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -119,12 +123,25 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="deploy-site-mkdocs">Deploy site - MkDocs</h1>
+<h1 id="mkdocs">MkDocs</h1>
+<h2 id="deployment-of-mkdocs-site-on-github-pages">Deployment of MkDocs site on GitHub Pages</h2>
 <ul>
 <li>Install <a href="https://www.mkdocs.org/">MkDocs</a></li>
-<li>create a new github repo</li>
-<li>in the <code>main</code> branch, create a new mkdocs project</li>
-<li>run it locally <code>mkdocs serve</code>, check it out at <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
+<li>Create a new github repository</li>
+<li>In the <code>main</code> branch, create a new mkdocs project</li>
+<li>Run it locally <code>mkdocs serve</code>, check it out at <a href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
+<li>In <code>mkdocs.yml</code> file, ensure</li>
+</ul>
+<pre><code class="language-yml">site_url: https://your-username.github.io/your-repo-name/
+</code></pre>
+<ul>
+<li>In GitHub &gt; Settings &gt; Pages,<ul>
+<li>set Source to "deploy from a branch"</li>
+<li>select branch <code>gh-deploy</code> at <code>/(root)</code></li>
+</ul>
+</li>
+<li>Deploy using <code>mkdocs gh-deploy --clean</code></li>
+<li>The site is accessible !</li>
 </ul></div>
             </div>
         </div>
