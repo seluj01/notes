@@ -7,10 +7,12 @@ repo_url: https://github.com/seluj01/notes#
 theme: mkdocs
 
 nav:
+  - Home: index.md
   - Algebra:
     - matrix inversion: Algebra/matrix_inversion.md
-  - Stats/Estim:
-    - Gaussian: StatsEstim/gaussian.md
+    - linear system: Algebra/solve_linear_eq_Cramer_rule.md
+  - Estimation:
+    - Gaussian: Estimation/gaussian.md
   - Geometry:
     - Geometry2D:
       - Geometry2D circle-circle intersection: Geometry2D/circle_circle_intersection.md
@@ -22,6 +24,7 @@ markdown_extensions:
   - mdx_math # for math
   - attr_list # for images, used to pass html parameters like size
   - admonition # for blocks
+  - footnotes
 
 extra_javascript:
   - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML

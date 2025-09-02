@@ -148,8 +148,21 @@ Using markdown extension `admonition`
 You can use `note`, `abstract`, `info`, `tip`, `success`, `question`, `warning`, `failure`, `danger`, `bug`, `example`, `quote`.
 The title is optional.
 
-
-
+### Footnotes
+use `[^1]` for a footnote [^1], and another [^2].
+Then add `[^1]: explanation` anywhere in the doc, it will be rendered at the bottom. For a paragraph, indent it with four spaces, e.g.
+```
+[^2]:
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+```
+[^1]: explanation
+[^2]:
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+    
 ### Collapsible sections
 <details>
 
