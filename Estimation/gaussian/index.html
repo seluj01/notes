@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="jules matz">
-        <link rel="canonical" href="http://seluj01.github.io/notes/StatsEstim/gaussian/">
+        <link rel="canonical" href="http://seluj01.github.io/notes/Estimation/gaussian/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
         <title>Gaussian - Notes</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
@@ -34,6 +34,9 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Algebra</a>
                                 <ul class="dropdown-menu">
@@ -41,10 +44,14 @@
 <li>
     <a href="../../Algebra/matrix_inversion/" class="dropdown-item">matrix inversion</a>
 </li>
+                                    
+<li>
+    <a href="../../Algebra/solve_linear_eq_Cramer_rule/" class="dropdown-item">linear system</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Stats/Estim</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
@@ -89,7 +96,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../Algebra/matrix_inversion/" class="nav-link">
+                                <a rel="prev" href="../../Algebra/solve_linear_eq_Cramer_rule/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -99,7 +106,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/seluj01/notes/edit/master/docs/StatsEstim/gaussian.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/seluj01/notes/edit/master/docs/Estimation/gaussian.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -137,26 +144,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#push" class="nav-link">push</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#back" class="nav-link">back</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#these" class="nav-link">these</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-bs-level="1"><a href="#lines" class="nav-link">lines</a>
-              <ul class="nav flex-column">
               </ul>
             </li>
         </ul>
@@ -239,25 +226,138 @@ $$
 \end{aligned}
 $$
 </details>
-
-<h2 id="confidence-region">Confidence region</h2>
-<p>The minimal volume which contains <script type="math/tex">X</script> with a given probability. For a Gaussian variable, it is an ellipsoid.</p>
-<div class="admonition info">
-<p class="admonition-title">radius of confidence region for standard normal distribution</p>
-<p>Probability <script type="math/tex">\eta</script> to be at a distance of less than <script type="math/tex">a</script> from <script type="math/tex">\mu</script>
+<p>One particular case is to obtain <script type="math/tex">Y\sim\mathcal{N}(\mu,\Sigma)</script> from the standard normal variable <script type="math/tex">X\sim\mathcal{N}(0,I)</script>,
 <script type="math/tex; mode=display">
- \begin{aligned}
- \eta &= \mathbb{P}(\|X\| \leq a) \\
- &= \mathbb{P}(X^\topX \leq a^2) \\
- &= \int_0^{a^2}\frac{1}{2}e^{}
- \end{aligned}
- </script>
+Y = \mu + \Sigma^{1/2} X
+</script>
+where <script type="math/tex">\Sigma^{1/2}</script> is the positive semidefinite symmetric matrix such that <script type="math/tex">\left(\Sigma^{1/2}\right)^\top \Sigma^{1/2}=\Sigma</script>.<br />
+It may be obtained from the eigendecomposition of <script type="math/tex">\Sigma</script>, in julia that is</p>
+<pre><code>dist = MvNormal(μ, Σ)
+Λ,Q = eigen(Σ) # Σ = QΛ/Q
+Σsqrt = Q*diagm(sqrt.(Λ))
+</code></pre>
+<h2 id="confidence-region">Confidence region</h2>
+<p>The minimal volume which contains <script type="math/tex">X</script> with a given probability (ellipsoid for a Gaussian variable). It is more straightforward to compute the probability given a volume, computations are below for dimensions 1, 2, 3, and here<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup> for dimension <script type="math/tex">n</script>.</p>
+<p><img alt="Gaussian 2D plot" src="../img/gaussian2Dplot.png" style="display: block; margin: 0 auto; width: 400px" /></p>
+<p>It is easier to compute it for a standard normal distribution (a centered segment/circle/sphere), then transform it into an ellipsoid usingthe linear transform for going from <script type="math/tex">\mathcal{N}(0,I)</script> to <script type="math/tex">\mathcal{N}(\mu,\Sigma)</script>.</p>
+<div class="admonition note">
+<p class="admonition-title">1, 2, 3-<script type="math/tex">\sigma</script> rule for <script type="math/tex">n=1, 2, 3</script>
 </p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th style="text-align: center;">
+<script type="math/tex">1\sigma</script>
+</th>
+<th style="text-align: center;">
+<script type="math/tex">2\sigma</script>
+</th>
+<th style="text-align: center;">
+<script type="math/tex">3\sigma</script>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align: center;">68.3</td>
+<td style="text-align: center;">95.5</td>
+<td style="text-align: center;">99.7</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align: center;">39.3</td>
+<td style="text-align: center;">86.5</td>
+<td style="text-align: center;">98.9</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align: center;">19.9</td>
+<td style="text-align: center;">73.8</td>
+<td style="text-align: center;">97.1</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h1 id="push">push</h1>
-<h1 id="back">back</h1>
-<h1 id="these">these</h1>
-<h1 id="lines">lines</h1></div>
+<details>
+<summary>dimension 1: \(\mathbb{P}(\mu - \sigma \leq X\leq \mu + \sigma)=0.683\)</summary>
+Using a change of variable \(z=\frac{x-\mu}{\sigma}\), it amounts to computing \(\mathbb{P}(-1 \leq X\leq 1)\),
+$$
+\begin{align}
+\mathbb{P}(\mu - \sigma \leq X\leq \mu + \sigma) &= \int_{\mu-\sigma}^{\mu+\sigma} \frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-1}{2}\left(\frac{x-\mu}{\sigma}\right)}dx \\
+&= \int_{-1}^1 \frac{1}{\sqrt{2\pi}}e^{\frac{-x^2}{2}}dx \\
+&= 0.683
+\end{align}
+$$
+The solution is obtained numerically, there is no analytical solution to this integral.
+</details>
+
+<details>
+<summary>dimension 2: \(\mathbb{P}(\|X\| \leq 1)=0.393\)</summary>
+For a standard normal distribution in dimension 2 \(X = (X_1, X_2)^\top\),
+$$
+\begin{align}
+\mathbb{P}(\|X\| \leq 1) &= \mathbb{P}(X^\top X \leq 1) \\
+&= \mathbb{P}(X_1^2 + X_2^2 \leq 1) \\
+&= \int_{x_1^2+x_2^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}}
+\end{align}
+$$
+whith \(n=2\) and \(x=(x_1, x_2)^\top\),
+$$
+= \int_{x_1^2+x_2^2\leq 1}\frac{1}{2\pi}e^{-\frac{x_1^2+x_2^2}{2}}
+$$
+Change of variable \(x_1=r\cos(\theta)\), \(x_2=r\sin(\theta)\) \(\implies r=\sqrt{x_1^2+x_2^2}\), and first integrating a quantity that does not depend on \(\theta\) from \(0\) to \(2\pi\),
+$$
+\begin{align}
+&= \frac{1}{2\pi}\int_0^{2\pi}\int_0^1 r e^{-\frac{r^2}{2}} dr d\theta \\
+&= \int_0^1 r e^{-\frac{r^2}{2}} dr \\
+&= \left[ -e^{-\frac{r^2}{2}} \right]_0^1 \\
+&= -e^{-\frac{1}{2}}-(-e^0) \\
+&= 1-e^{-\frac{1}{2}} \\
+&= 0.393
+\end{align}
+$$
+This is an analytical solution and an inverse formula exists to compute the radius \(r\) corresponding to a specific probability \(p\),
+$$
+p = 1-e^{-\frac{r^2}{2}} \iff r = \sqrt{-2\ln(1-p)}.
+$$
+</details>
+
+<details>
+<summary>dimension 3: \(\mathbb{P}(\|X\| \leq 1)=0.199\)</summary>
+For a standard normal distribution in dimension 3 \(X = (X_1, X_2, X_3)^\top\),
+$$
+\begin{align}
+\mathbb{P}(\|X\| \leq 1) &= \mathbb{P}(X^\top X \leq 1) \\
+&= \mathbb{P}(X_1^2 + X_2^2 + X_3^2\leq 1) \\
+&= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}}
+\end{align}
+$$
+whith \(n=3\) and \(x=(x_1, x_2, x_3)^\top\),
+$$
+= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^{3/2}}e^{-\frac{x_1^2+x_2^2+x_3^2}{2}}
+$$
+Change of variable \(x_1=r\sin(\phi)\cos(\theta)\), \(x_2=r\sin(\phi)\sin(\theta)\), \(x_3=r\cos(\phi)\) \(\implies r=\sqrt{x_1^2+x_2^2+x_3^2}\), and first integrating a quantity that does not depend on \(\theta\) from \(0\) to \(2\pi\), and then \(\sin(\phi)\) from \(0\) to \(\pi\) which gives \(-\cos\pi - (-\cos 0) = 2\),
+$$
+\begin{align}
+&= \frac{1}{2\pi^{3/2}}\int_0^{2\pi}\int_0^\pi\int_0^1 r^2\sin(\phi)e^{-\frac{r^2}{2}} dr d\phi d\theta \\
+&= \frac{2\pi}{2\pi^{3/2}}\int_0^\pi\sin(\phi)\int_0^1 r^2e^{-\frac{r^2}{2}} dr d\phi \\
+&= \frac{2}{\sqrt{2\pi}}\int_0^1 r^2e^{-\frac{r^2}{2}} dr \\
+&= 0.199
+\end{align}
+$$
+The solution is obtained numerically, there is no analytical solution to this integral. 
+</details>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Wang, B., Shi, W., &amp; Miao, Z. (2015). Confidence analysis of standard deviational ellipse and its extension into higher dimensional Euclidean space. PloS one, 10(3), e0118537.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 

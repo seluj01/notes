@@ -34,6 +34,9 @@
                 <div id="navbar-collapse" class="navbar-collapse collapse">
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../.." class="nav-link">Home</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Algebra</a>
                                 <ul class="dropdown-menu">
@@ -41,14 +44,18 @@
 <li>
     <a href="../../Algebra/matrix_inversion/" class="dropdown-item">matrix inversion</a>
 </li>
+                                    
+<li>
+    <a href="../../Algebra/solve_linear_eq_Cramer_rule/" class="dropdown-item">linear system</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Stats/Estim</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../StatsEstim/gaussian/" class="dropdown-item">Gaussian</a>
+    <a href="../../Estimation/gaussian/" class="dropdown-item">Gaussian</a>
 </li>
                                 </ul>
                             </li>
@@ -275,6 +282,14 @@ a &= b + c
 </div>
 <p>You can use <code>note</code>, <code>abstract</code>, <code>info</code>, <code>tip</code>, <code>success</code>, <code>question</code>, <code>warning</code>, <code>failure</code>, <code>danger</code>, <code>bug</code>, <code>example</code>, <code>quote</code>.
 The title is optional.</p>
+<h3 id="footnotes">Footnotes</h3>
+<p>use <code>[^1]</code> for a footnote <sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>, and another <sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.
+Then add <code>[^1]: explanation</code> anywhere in the doc, it will be rendered at the bottom. For a paragraph, indent it with four spaces, e.g.</p>
+<pre><code>[^2]:
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+    nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+    massa, nec semper lorem quam in massa.
+</code></pre>
 <h3 id="collapsible-sections">Collapsible sections</h3>
 <details>
 
@@ -313,7 +328,21 @@ This one is opened by default
 </details>
 </details>
 </details>
-</details></div>
+</details>
+
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>explanation&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla et euismod
+nulla. Curabitur feugiat, tortor non consequat finibus, justo purus auctor
+massa, nec semper lorem quam in massa.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div></div>
             </div>
         </div>
 
