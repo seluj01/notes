@@ -17,9 +17,9 @@
 
 | Topic              | Details                    | Status      |
 |--------------------|----------------------------|-------------|
-| Algebra basics     | Matrix inv, inner prod,... | In Progress |
-| Kalman             | Proof, link to Luenberger  | Not Started |
-| ROS2               | For Kalman demo            | Not Started |
+| Algebra basics     | Matrix inv, inner prod,... |  Stand-by   |
+| Kalman             | Proof, link to Luenberger  | In Progress |
+| ROS2               | For Kalman demo            | In Progress |
 | C++                | basics, eigen, opencv      | Not Started |
 | Optimization       | DIRECT,...                 | Not Started |
 | Information theory |                            | Not Started |

@@ -19,6 +19,10 @@ nav:
   - Tools:
     - Mardown: Tools/markdown.md
     - MkDocs: Tools/mkdocs.md
+    - ROS2:
+      - command-line: Tools/ros2.md
+      - C++ packages: Tools/ros2_cpp.md
+      - Python packages: Tools/ros2_python.md
 
 markdown_extensions:
   - mdx_math # for math

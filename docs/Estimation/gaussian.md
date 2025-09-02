@@ -1,4 +1,4 @@
-# Gaussian variables
+# Gaussian random variables
 ## Definition
 A Gaussian (or **normal**) **random variable** \(X\) has the probability density function (PDF)
 $$
@@ -37,7 +37,7 @@ $$
 \end{aligned}
 $$
 <details>
-<summary>Proof</summary>
+<summary>Proof for \(Y=AX+b\)</summary>
 $$
 \begin{aligned}
 \mu_Y &= \mathbb{E}[AX+b] \\
@@ -51,7 +51,7 @@ $$
 $$
 </details>
 <details>
-<summary>\(Y=AX+b+\epsilon\)</summary>
+<summary>Case \(Y=AX+b+\epsilon\)</summary>
 Adding a gaussian noise \(\epsilon\sim\mathcal{N}(0,\Sigma_\epsilon)\) gives
 $$
 \begin{aligned}
