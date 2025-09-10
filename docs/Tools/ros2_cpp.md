@@ -2,10 +2,21 @@
 Structure
 ```
 my_package/
+     config/             # yaml config files
+     rviz/               # rviz config files
+     doc/                # documentation
+     msg/                # custom msg definitions
+     launch/             # launch files
+     include/my_package  # headers .h and .hpp
+     src/                # C++ source code
+     urdf/
+     srv/
+     action/
+     test/
      CMakeLists.txt      # instructions to build code
-     include/my_package/ # public headers of pkg
      package.xml         # meta info
-     src/                # source code
+     LICENSE
+     
 ```
 Creation
 ```

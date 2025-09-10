@@ -13,3 +13,4 @@ site_url: https://your-username.github.io/your-repo-name/
     - select branch `gh-deploy` at `/(root)`
 - Deploy using `mkdocs gh-deploy --clean`
 - The site is accessible after a few minutes!
+

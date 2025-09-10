@@ -15,13 +15,20 @@
 
 ## TODO
 
-| Topic              | Details                    | Status      |
-|--------------------|----------------------------|-------------|
-| Algebra basics     | Matrix inv, inner prod,... |  Stand-by   |
-| Kalman             | Proof, link to Luenberger  | In Progress |
-| ROS2               | For Kalman demo            | In Progress |
-| C++                | basics, eigen, opencv      | Not Started |
-| Optimization       | DIRECT,...                 | Not Started |
-| Information theory |                            | Not Started |
+| Topic              | Details                      | Status      |
+|--------------------|------------------------------|-------------|
+| Algebra basics     | Matrix inv, inner prod,...   |  Stand-by   |
+| Kalman             | Proof, link to Luenberger    | In Progress |
+| ROS2               | For Kalman demo              |  Stand-by   |
+| Python             | basics, numPy, SciPy, OpenCV | In Progress |
+| C++                | basics, Eigen, OpenCV        |  Stand-by   |
+| Optimization       | DIRECT,...                   | Not Started |
+| Information theory |                              | Not Started |
 
-
+## In Progess
+- Camera calibration
+- Knowing distance between red and yellow dot, compute distance, with a few assumptions (in vertical plane no z-rotation w.r.t. camera)
+- Compute measurement angle
+- Implement Kalman filter
+- Improve rviz for real-time demo
+- Check and tune rates
