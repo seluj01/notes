@@ -57,6 +57,14 @@
 <li>
     <a href="../../Estimation/gaussian/" class="dropdown-item">Gaussian</a>
 </li>
+                                    
+<li>
+    <a href="../../Estimation/Bayesian_inference/" class="dropdown-item">Bayesian inference</a>
+</li>
+                                    
+<li>
+    <a href="../../Estimation/Kalman/" class="dropdown-item">Kalman filter</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -156,10 +164,21 @@
 <h2 id="ros2-c-package">ROS2 C++ package</h2>
 <p>Structure</p>
 <pre><code>my_package/
+     config/             # yaml config files
+     rviz/               # rviz config files
+     doc/                # documentation
+     msg/                # custom msg definitions
+     launch/             # launch files
+     include/my_package  # headers .h and .hpp
+     src/                # C++ source code
+     urdf/
+     srv/
+     action/
+     test/
      CMakeLists.txt      # instructions to build code
-     include/my_package/ # public headers of pkg
      package.xml         # meta info
-     src/                # source code
+     LICENSE
+
 </code></pre>
 <p>Creation</p>
 <pre><code>ros2 pkg create --build-type ament_cmake --license Apache-2.0 --node-name my_node my_package

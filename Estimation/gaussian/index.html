@@ -57,6 +57,14 @@
 <li>
     <a href="./" class="dropdown-item active" aria-current="page">Gaussian</a>
 </li>
+                                    
+<li>
+    <a href="../Bayesian_inference/" class="dropdown-item">Bayesian inference</a>
+</li>
+                                    
+<li>
+    <a href="../Kalman/" class="dropdown-item">Kalman filter</a>
+</li>
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
@@ -119,7 +127,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../../Geometry2D/circle_circle_intersection/" class="nav-link">
+                                <a rel="next" href="../Bayesian_inference/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -173,7 +181,7 @@
 <h2 id="definition">Definition</h2>
 <p>A Gaussian (or <strong>normal</strong>) <strong>random variable</strong> <script type="math/tex">X</script> has the probability density function (PDF)
 <script type="math/tex; mode=display">
-f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}
+p(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}
 </script>
 </p>
 <div class="admonition note">
@@ -181,7 +189,7 @@ f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-\frac{1}{2}\frac{(x-\mu)^2}{\sigma^2}}
 </p>
 <p>
 <script type="math/tex; mode=display">
- f_X(x) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}e^{-\frac{1}{2}(x-\mu)^\top \Sigma ^{-1}(x-\mu)}
+ p(x) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}e^{-\frac{1}{2}(x-\mu)^\top \Sigma ^{-1}(x-\mu)}
  </script>
 </p>
 </div>
@@ -191,7 +199,7 @@ The <strong>standard</strong> normal distribution is <script type="math/tex">\ma
 <h2 id="mean-and-variance">Mean and Variance</h2>
 <p>
 <script type="math/tex; mode=display">
-\mu = \mathbb{E}[X] = \int_\mathbb{R}xf(x)dx\\
+\mu = \mathbb{E}[X] = \int_\mathbb{R}xp(x)dx\\
 \sigma = \mathbb{V}[X] = \mathbb{E}[(X-\mu)^2]
 </script>
 <img alt="variance_1D_intuition" src="../img/variance_1D_intuition.png" style="display: block; margin: 0 auto; width: 300px" /></p>

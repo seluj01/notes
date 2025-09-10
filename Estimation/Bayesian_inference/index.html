@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="jules matz">
-        <link rel="canonical" href="http://seluj01.github.io/notes/Tools/ros2/">
+        <link rel="canonical" href="http://seluj01.github.io/notes/Estimation/Bayesian_inference/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>command-line - Notes</title>
+        <title>Bayesian inference - Notes</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -51,19 +51,19 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Estimation</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../Estimation/gaussian/" class="dropdown-item">Gaussian</a>
+    <a href="../gaussian/" class="dropdown-item">Gaussian</a>
 </li>
                                     
 <li>
-    <a href="../../Estimation/Bayesian_inference/" class="dropdown-item">Bayesian inference</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Bayesian inference</a>
 </li>
                                     
 <li>
-    <a href="../../Estimation/Kalman/" class="dropdown-item">Kalman filter</a>
+    <a href="../Kalman/" class="dropdown-item">Kalman filter</a>
 </li>
                                 </ul>
                             </li>
@@ -83,15 +83,15 @@
                                 </ul>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tools</a>
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Tools</a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../markdown/" class="dropdown-item">Mardown</a>
+    <a href="../../Tools/markdown/" class="dropdown-item">Mardown</a>
 </li>
                                     
 <li>
-    <a href="../mkdocs/" class="dropdown-item">MkDocs</a>
+    <a href="../../Tools/mkdocs/" class="dropdown-item">MkDocs</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -99,15 +99,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">command-line</a>
+    <a href="../../Tools/ros2/" class="dropdown-item">command-line</a>
 </li>
             
 <li>
-    <a href="../ros2_cpp/" class="dropdown-item">C++ packages</a>
+    <a href="../../Tools/ros2_cpp/" class="dropdown-item">C++ packages</a>
 </li>
             
 <li>
-    <a href="../ros2_python/" class="dropdown-item">Python packages</a>
+    <a href="../../Tools/ros2_python/" class="dropdown-item">Python packages</a>
 </li>
     </ul>
   </li>
@@ -122,17 +122,17 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../mkdocs/" class="nav-link">
+                                <a rel="prev" href="../gaussian/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../ros2_cpp/" class="nav-link">
+                                <a rel="next" href="../Kalman/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://github.com/seluj01/notes/edit/master/docs/Tools/ros2.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
+                                <a href="https://github.com/seluj01/notes/edit/master/docs/Estimation/Bayesian_inference.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -152,25 +152,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#ros2" class="nav-link">ROS2</a>
+            <li class="nav-item" data-bs-level="1"><a href="#bayesian-inference" class="nav-link">Bayesian inference</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#build" class="nav-link">Build</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#introspection" class="nav-link">Introspection</a>
+            <li class="nav-item" data-bs-level="2"><a href="#bayes-theorem" class="nav-link">Bayes' theorem</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#operations" class="nav-link">Operations</a>
+            <li class="nav-item" data-bs-level="2"><a href="#bayesian-inference_1" class="nav-link">Bayesian inference</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-bs-level="2"><a href="#parameters" class="nav-link">Parameters</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#bags" class="nav-link">Bags</a>
+            <li class="nav-item" data-bs-level="2"><a href="#recursive-bayesian-inference" class="nav-link">Recursive Bayesian inference</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -181,59 +173,111 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="ros2">ROS2</h1>
-<pre><code>source /opt/ros/jazzy/setup.bash
-source &lt;install_folder&gt;/local_setup.bash
-</code></pre>
-<pre><code>rqt # gui to replace many command-line
-colcon_cd &lt;pkg_name&gt; # cd to pkg folder
-</code></pre>
-<h2 id="build">Build</h2>
-<pre><code># resolve dependencies
-rosdep install -i --from-path src --rosdistro jazzy -y
-# build
-colcon build --symlink-install # build (python modifications do not require rebuild)
-colcon build --packages-select &lt;pkg_name&gt; # rebuild only specific package
-colcon build --event-handlers console_direct+ # show console output to debug
-</code></pre>
-<p>To not build a specific package, place an empty file <code>COLCON_IGNORE</code> in its directory.</p>
-<h2 id="introspection">Introspection</h2>
-<pre><code class="language-bash">ros2 run rqt_graph rqt_graph
-ros2 run rqt_console rqt_console # to inspect logs
+<h1 id="bayesian-inference">Bayesian inference</h1>
+<h2 id="bayes-theorem">Bayes' theorem</h2>
+<p>Obtained from the relation between conditional and joint probabilites.</p>
+<details>
+<summary>Events \(A\) and \(B\)</summary>
+$$
+\mathbb{P}(A|B) \mathbb{P}(B) = \mathbb{P}(A,B) = \mathbb{P}(B|A) \mathbb{P}(A)
+$$
+$$
+\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(A)}
+$$
+</details>
 
-ros2 pkg executables &lt;pkg_name&gt;
+<details>
+<summary>Discrete random variables \(X\) and \(Y\)</summary>
+$$
+p(X=x|Y=y) p(Y=y) = p(\lbrace X=x\rbrace ,\lbrace Y=y\rbrace) = p(Y=y|X=x) p(X=x)
+$$
+$$
+p(X=x|Y=y) = \frac{p(Y=y|X=x) p(X=x)}{p(Y=y)}
+$$
+</details>
 
-ros2 node list
-ros2 topic list -t # -t to show topic type
-ros2 service list
-ros2 action list
-
-ros2 node info &lt;node_name&gt;
-ros2 topic info &lt;topic_name&gt; # show type, publishers, subscribers
-ros2 interface show &lt;msg_name&gt; # show details of message structure
-
-ros2 topic hz &lt;topic_name&gt;
-ros2 topic bw &lt;topic_name&gt; # bandwith (data transfer rate in KB/s and msg size in KB)
-ros2 topic echo &lt;topic_name&gt;
-</code></pre>
-<h2 id="operations">Operations</h2>
-<pre><code class="language-bash">ros2 launch &lt;pkg_name&gt; &lt;launch_name&gt; # launch files have extension .launch.py
-ros2 run &lt;pkg_name&gt; &lt;exec_name&gt;
-</code></pre>
-<h2 id="parameters">Parameters</h2>
-<pre><code>ros2 param get &lt;node_name&gt; &lt;param_name&gt;
-ros2 param set &lt;node_name&gt; &lt;param_name&gt; &lt;value&gt;
-ros2 param dump &lt;node name&gt; # print all param and values to stdout
-ros2 param dump /turtlesim &gt; cfg1.yaml # print to file
-ros2 param load /turtlesim cfg1.yaml # load parameters
-ros2 run &lt;pkg_name&gt; &lt;exec_name&gt; --ros-args --params-file cfg1.yaml # run with param
-</code></pre>
-<h2 id="bags">Bags</h2>
-<pre><code>cd /bag_files # move to where bag should be saved
-ros2 bag record -o my_bag_name &lt;topic_name1&gt; &lt;topic_name2&gt;
-ros2 bag info &lt;bag_file&gt;
-ros2 bag play --clock --loop &lt;bag_file&gt;
-</code></pre></div>
+<details open>
+<summary>Continuous random variables \(X\) and \(Y\)</summary>
+$$
+p_{X|Y}(x|y) p_Y(y) = p_{X,Y}(x,y) = p_{Y|X}(y|x) p_X(x)
+$$
+Omitting the subscript notation for the random variable,
+$$
+p(x|y) p(y) = p(x,y) = p(y|x) p(x)
+$$
+Bayes' theorem is
+$$
+p(x|y) = \frac{p(y|x) p(x)}{p(y)}
+$$
+</details>
+<p>The rest of this note only deals with continuous random variables. </p>
+<h2 id="bayesian-inference_1">Bayesian inference</h2>
+<p>With prior distribution <script type="math/tex">p(\theta)</script> and measurement model <script type="math/tex">p(y|\theta)</script>,
+<script type="math/tex; mode=display">
+p(\theta|y_{1:N}) = \frac{p(y_{1:N}|\theta) p(\theta)}{p(y_{1:N})}
+</script>
+Then either</p>
+<ul>
+<li>
+<p>we need to keep the denominator, it can be <em>integrated out</em> over <script type="math/tex">\theta</script> as
+<script type="math/tex; mode=display">
+p(y) = \int p(y|\theta)p(\theta)d\theta
+</script>
+</p>
+</li>
+<li>
+<p>we do not mind the scale factor <script type="math/tex">p(y|\theta)</script>, it is sufficient to consider
+<script type="math/tex; mode=display">
+p(\theta|y_{1:N}) \propto p(y_{1:N}|\theta) p(\theta)
+</script>
+which simplifies for <em>independent and identically distributed</em> (i.i.d.) measurements, 
+<script type="math/tex; mode=display">
+p(\theta|y_{1:N}) \propto p(\theta) \prod_{i=1}^N p(y_i|\theta)
+</script>
+and for Gaussian random variables (here in dim <script type="math/tex">n=1</script>),
+<script type="math/tex; mode=display">
+\begin{aligned}
+p(\theta|y) &\propto \frac{1}{\sqrt{2\pi\sigma_\theta^2}}e^{-\frac{1}{2}\frac{(\theta-\mu_\theta)^2}{\sigma_\theta^2}}
+\prod_{i=1}^N \frac{1}{\sqrt{2\pi\sigma_{y_i}^2}}e^{-\frac{1}{2}\frac{(\theta-\mu_{y_i})^2}{\sigma_{y_i}^2}}
+\end{aligned}
+</script>
+</p>
+</li>
+</ul>
+<h2 id="recursive-bayesian-inference">Recursive Bayesian inference</h2>
+<p>In practice we often receive measurements successively, the posterior of one instant becomes the prior of the next.
+<script type="math/tex; mode=display">
+\begin{aligned}
+p(\theta|y_1) &\propto p(y_1|\theta)p(\theta) \\
+p(\theta|y_{1:2}) &\propto p(y_2|\theta)p(\theta|y_1) \\
+&\text{etc.}
+\end{aligned}
+</script>
+</p>
+<details>
+<summary>Example for \(y=\theta + \epsilon\)</summary>
+with measurement noise \(\epsilon=\mathcal{N}(0,\sigma_y^2)\) and a priori \(\theta\sim\mathcal{N}(\mu_0,\sigma_0^2)\), the posterior is proportional to a product of gaussians, itself proportional to another gaussian,
+$$
+\begin{aligned}
+p(\theta|y) &\propto p(y|\theta)p(\theta) \\
+&\propto \mathcal{N}(\mu_1,\sigma_1^2)
+\end{aligned}
+$$
+with 
+$$
+\begin{aligned}
+\mu_1 &= \frac{1}{\frac{1}{\sigma_y^2} + \frac{1}{\sigma_0^2}} \left(\frac{y}{\sigma_y^2} + \frac{\mu_0}{\sigma_0^2}\right) \\
+\sigma_1^2 &= \frac{1}{\frac{1}{\sigma_y^2} + \frac{1}{\sigma_0^2}}
+\end{aligned}
+$$
+For the multivariate case, \(p(\theta|y)\) is proportional to
+$$
+\begin{aligned}
+\mu_1 &=\left[\Sigma_y^{-1} + \Sigma_0^{-1}\right]^{-1} \left[\Sigma_y^{-1}y + \Sigma_0^{-1}\mu_0\right] \\
+\Sigma_1 &= \left[\Sigma_y^{-1} + \Sigma_0^{-1}\right]^{-1}
+\end{aligned}
+$$
+</details></div>
             </div>
         </div>
 
