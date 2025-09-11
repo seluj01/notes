@@ -10,7 +10,8 @@ $$
      $$
 It is fully described by two parameters, its **mean** \(\mu\) and **variance** \(\sigma\) (or \(\Sigma\)).  
 We write \(X\sim \mathcal{N}(\mu,\sigma^2)\), or \(X\sim \mathcal{N}(\mu,\Sigma)\).  
-The **standard** normal distribution is \(\mathcal{N}(0,1)\).
+The **standard** normal distribution is \(\mathcal{N}(0,1)\).  
+The coefficent \(\frac{1}{\sqrt{2\pi\sigma^2}}\) is a normalizing factor so that \(\int p(x)dx = 1\).
 ## Mean and Variance
 $$
 \mu = \mathbb{E}[X] = \int_\mathbb{R}xp(x)dx\\
