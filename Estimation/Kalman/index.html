@@ -63,6 +63,10 @@
 </li>
                                     
 <li>
+    <a href="../Bayesian_inference_gaussian/" class="dropdown-item">Bayesian inference for Gaussians</a>
+</li>
+                                    
+<li>
     <a href="./" class="dropdown-item active" aria-current="page">Kalman filter</a>
 </li>
                                 </ul>
@@ -122,7 +126,7 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../Bayesian_inference/" class="nav-link">
+                                <a rel="prev" href="../Bayesian_inference_gaussian/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
@@ -130,9 +134,6 @@
                                 <a rel="next" href="../../Geometry2D/circle_circle_intersection/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/seluj01/notes/edit/master/docs/Estimation/Kalman.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -180,9 +181,9 @@ z_k &= H x_k + R
 </script>
 </p>
 <ul>
-<li>state is <script type="math/tex">x_k\sim\mathcal{N}(m_k,P_k)</script>
+<li>filtered state is <script type="math/tex">\color{blue}{x_k\sim\mathcal{N}(m_k,P_k)}</script>
 </li>
-<li>predicted state is <script type="math/tex">x_k\sim\mathcal{N}(m_{k}^\text{pred},P_{k}^\text{pred})</script>
+<li>predicted state is <script type="math/tex">\color{green}{x_k\sim\mathcal{N}(m_{k},P_{k})}</script>
 </li>
 <li>output is <script type="math/tex">z_k\sim\mathcal{N}(y_k,R)</script>
 </li>
@@ -200,13 +201,15 @@ $$
 </details>
 
 <h2 id="equations">Equations</h2>
+<p>
+<script type="math/tex">A_d</script>, <script type="math/tex">B_d</script>, <script type="math/tex">H</script>, <script type="math/tex">Q</script>, <script type="math/tex">R</script> can be time-varying.</p>
 <div class="admonition note">
 <p class="admonition-title">Prediction</p>
 <p>
 <script type="math/tex; mode=display">
  \begin{aligned}
- m_{k+1}^\text{pred} &= A_d m_k + B_du_k \\
- P_{k+1}^\text{pred} &= A_d P_k A_d^\top + Q
+ \color{green}{m_{k+1}} &= A_d \color{blue}{m_k} + B_du_k \\
+ \color{green}{P_{k+1}} &= A_d \color{blue}{P_k} A_d^\top + Q
  \end{aligned}
  </script>
 </p>
@@ -216,16 +219,40 @@ $$
 <p>
 <script type="math/tex; mode=display">
  \begin{aligned}
- S_k &= H P_{k}^\text{pred} H^\top + R \\
- K_k &= P_{k}^\text{pred} H^\top S_k^{-1} \\
- m_k &= m_{k}^\text{pred} + K_k (y_k - H m_{k}^\text{pred}) \\
- P_k &= (I - K_k H) P_{k}^\text{pred} 
+ S_k &= H \color{green}{P_k} H^\top + R \\
+ K_k &= \color{green}{P_k} H^\top S_k^{-1} \\
+ \color{blue}{m_k} &= \color{green}{m_k} + K_k (y_k - H \color{green}{m_k}) \\
+ \color{blue}{P_k} &= (I - K_k H) \color{green}{P_k} 
  \end{aligned}
  </script>
 </p>
 </div>
-<p>
-<script type="math/tex">A_d</script>, <script type="math/tex">B_d</script>, <script type="math/tex">H</script> can be time-varying.</p></div>
+<details>
+$$
+\begin{aligned}
+&\color{blue}{p(x|y)} = \frac{p(y|x)\color{green}{p(x)}}{p(y)} \\
+&\propto \exp\left(-\frac{1}{2}(y-Hx)^\top R^{-1}(y-Hx)\right) \exp\left(-\frac{1}{2}(x-\color{green}{m})^\top \color{green}{P}^{-1}(x-\color{green}{m})\right) \\
+&= \exp\left(-\frac{1}{2}\left( y^\top R^{-1}y-2x^\top H^\top R^{-1}y + x^\top H^\top R^{-1}Hx + x^\top \color{green}{P}^{-1}x-2x^\top \color{green}{P}^{-1}\color{green}{m} + \color{green}{m}^\top \color{green}{P}^{-1}\color{green}{m} \right)\right) \\
+&= \exp\left(-\frac{1}{2}\left( x^\top(\underbrace{\color{green}{P}^{-1} + H^\top R^{-1}H}_{\color{blue}{P}^{-1}})x - 2x^\top (\underbrace{\color{green}{P}^{-1}\color{green}{m}+H^\top R^{-1}y}_{\color{blue}{P}^{-1}\color{blue}{m}}) + \ldots \right)\right)
+\end{aligned}
+$$
+hence
+$$
+\begin{aligned}
+\color{blue}{P} &= (\color{green}{P}^{-1}+H^\top R^{-1}H)^{-1} \\
+&= P-\underbrace{\color{green}{P}H^\top (\underbrace{H\color{green}{P}H^\top+R}_{S})^{-1}}_{K = \color{green}{P}H^\top S^{-1}}H\color{green}{P}
+\end{aligned}
+$$
+where the second line is obtained from the Woodbury identity, and
+$$
+\begin{aligned}
+\color{blue}{m} &= \color{blue}{P} (\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y) \\
+&= \left(\color{green}{P}-\color{green}{P}H^\top (H\color{green}{P}H^\top+R)^{-1}H\color{green}{P}\right) \left(\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y\right) \\
+&= \left(\color{green}{P}-KH\color{green}{P}\right) \left(\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y\right) \\
+&= \color{green}{m}
+\end{aligned}
+$$
+</details></div>
             </div>
         </div>
 

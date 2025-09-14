@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <meta name="author" content="jules matz">
-        <link rel="canonical" href="http://seluj01.github.io/notes/Estimation/Bayesian_inference/">
+        <link rel="canonical" href="http://seluj01.github.io/notes/Estimation/Bayesian_inference_gaussian/">
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Bayesian inference - Notes</title>
+        <title>Bayesian inference for Gaussians - Notes</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -59,11 +59,11 @@
 </li>
                                     
 <li>
-    <a href="./" class="dropdown-item active" aria-current="page">Bayesian inference</a>
+    <a href="../Bayesian_inference/" class="dropdown-item">Bayesian inference</a>
 </li>
                                     
 <li>
-    <a href="../Bayesian_inference_gaussian/" class="dropdown-item">Bayesian inference for Gaussians</a>
+    <a href="./" class="dropdown-item active" aria-current="page">Bayesian inference for Gaussians</a>
 </li>
                                     
 <li>
@@ -126,12 +126,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../gaussian/" class="nav-link">
+                                <a rel="prev" href="../Bayesian_inference/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../Bayesian_inference_gaussian/" class="nav-link">
+                                <a rel="next" href="../Kalman/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -153,16 +153,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-bs-level="1"><a href="#bayesian-inference" class="nav-link">Bayesian inference</a>
+            <li class="nav-item" data-bs-level="1"><a href="#bayesian-inference-for-gaussians" class="nav-link">Bayesian inference for Gaussians</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#bayes-theorem" class="nav-link">Bayes' theorem</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#recursive-bayesian-inference-for-parameter-estimation" class="nav-link">Recursive Bayesian inference for parameter estimation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -170,79 +162,90 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="bayesian-inference">Bayesian inference</h1>
-<h2 id="bayes-theorem">Bayes' theorem</h2>
-<p>Obtained from the relation between conditional and joint probabilites.</p>
+<h1 id="bayesian-inference-for-gaussians">Bayesian inference for Gaussians</h1>
+<p>Considering
+<script type="math/tex; mode=display">
+p(\theta|y) = \frac{p(y|\theta)p(\theta)}{p(y)}
+</script>
+with model <script type="math/tex">p(y|\theta)</script> and prior <script type="math/tex">p(\theta)</script> being Gaussian random variables.  </p>
 <details>
-<summary>Events \(A\) and \(B\)</summary>
+<summary> The posterior \(p(\theta|y)\) is also Gaussian if... </summary>
+\(p(\theta|y)\) is Gaussian if the product \(p(y|\theta)p(\theta)\) is proportionnal to
 $$
-\mathbb{P}(A|B) \mathbb{P}(B) = \mathbb{P}(A,B) = \mathbb{P}(B|A) \mathbb{P}(A)
+e^{-\frac{1}{2}\left(\theta^\top\Sigma^{-1}\theta - 2\theta^\top\Sigma^{-1}\mu + ...\right)}
 $$
+the last constant part in the exponential does not matter: it is partly used for completing the square so the exponential part is
 $$
-\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(A)}
+e^{-\frac{1}{2}(\theta-\mu)^\top\Sigma^{-1}(\theta-\mu)}
 $$
+and partly used to scale (since \(e^{x+c}=e^xe^c\)) the result so the final posterior distribution has a scaling factor (also taking into account \(p(y)\) ) that integrates to 1. It always does integrate to 1 because all probability density functions do.
 </details>
 
+<details open>
+<summary>Example \(y=\theta + \epsilon\)</summary>
+with measurement noise \(\epsilon=\mathcal{N}(0,\sigma_y^2)\) and a priori \(\theta\sim\mathcal{N}(\mu_0,\sigma_0^2)\), the posterior is proportional to a product of gaussians, itself proportional to another gaussian,
+$$
+\begin{aligned}
+p(\theta|y) &\propto p(y|\theta)p(\theta) \\
+&\propto \mathcal{N}(\mu_1,\sigma_1^2)
+\end{aligned}
+$$
+$$
+\begin{aligned}
+\mu_1 &= \frac{1}{\frac{1}{\sigma_y^2} + \frac{1}{\sigma_0^2}} \left(\frac{y}{\sigma_y^2} + \frac{\mu_0}{\sigma_0^2}\right) \\
+\sigma_1^2 &= \frac{1}{\frac{1}{\sigma_y^2} + \frac{1}{\sigma_0^2}}
+\end{aligned}
+$$
 <details>
-<summary>Discrete random variables \(X\) and \(Y\)</summary>
 $$
-p(X=x|Y=y) p(Y=y) = p(\lbrace X=x\rbrace ,\lbrace Y=y\rbrace) = p(Y=y|X=x) p(X=x)
+\begin{aligned}
+p(\theta|y) &\propto \exp\left(-\frac{1}{2}\frac{(y-\theta)^2}{\sigma_y^2}\right) \exp\left(-\frac{1}{2}\frac{(\theta-\mu_0)^2}{\sigma_0^2}\right) \\
+&=\exp\left(-\frac{1}{2}\left(\frac{y^2-2y\theta+\theta^2}{\sigma_y^2}+\frac{\theta^2-2\theta\mu_0+\mu_0^2}{\sigma_0^2}\right)\right) \\
+&= \exp\left(-\frac{1}{2}\left(\theta^2\underbrace{\left(\frac{1}{\sigma_y^2}+\frac{1}{\sigma_0^2}\right)}_{\frac{1}{\sigma_1^2}}-2\theta\underbrace{\left(\frac{y}{\sigma_y^2}+\frac{\mu_0}{\sigma_0^2}\right)}_{\frac{\mu_1}{\sigma_1^2}} + \ldots\right)\right)
+\end{aligned}
 $$
+</details>
+For the multivariate case, \(p(\theta|y) \propto \mathcal{N}(\mu_1,\Sigma_1)\) with
 $$
-p(X=x|Y=y) = \frac{p(Y=y|X=x) p(X=x)}{p(Y=y)}
+\begin{aligned}
+\mu_1 &=\left[\Sigma_y^{-1} + \Sigma_0^{-1}\right]^{-1} \left[\Sigma_y^{-1}y + \Sigma_0^{-1}\mu_0\right] \\
+\Sigma_1 &= \left[\Sigma_y^{-1} + \Sigma_0^{-1}\right]^{-1}
+\end{aligned}
 $$
 </details>
 
 <details open>
-<summary>Continuous random variables \(X\) and \(Y\)</summary>
+<summary>Example \(y=\sum\theta_i x_i + \epsilon = X\theta + \epsilon \)</summary>
+with input vector \(X=(x_1,\ldots,x_n)\), measurement noise \(\epsilon=\mathcal{N}(0,\sigma_y^2)\) and a priori \(\theta\sim\mathcal{N}(\mu_0,\Sigma_0)\),
 $$
-p_{X|Y}(x|y) p_Y(y) = p_{X,Y}(x,y) = p_{Y|X}(y|x) p_X(x)
+p(\theta|y) \propto \mathcal{N}(\mu_1,\Sigma_1^2)
 $$
-Omitting the subscript notation for the random variable,
 $$
-p(x|y) p(y) = p(x,y) = p(y|x) p(x)
+\begin{aligned}
+\mu_1 &=\left[\frac{X^\top X}{\sigma_y^2} + \Sigma_0^{-1}\right]^{-1} \left[\frac{X^\top y}{\sigma_y^2} + \Sigma_0^{-1}\mu_0\right] \\
+\Sigma_1 &= \left[\frac{X^\top X}{\sigma_y^2} + \Sigma_0^{-1}\right]^{-1}
+\end{aligned}
 $$
-Bayes' theorem is
+<details>
 $$
-p(x|y) = \frac{p(y|x) p(x)}{p(y)}
+\begin{aligned}
+p(\theta|y) &\propto \exp\left(-\frac{1}{2}\frac{(y-X\theta)^2}{\sigma_y^2}\right) \exp\left(-\frac{1}{2}(\theta-\mu_0)^\top\Sigma_0^{-1}(\theta-\mu_0)\right) \\
+&=\exp\left(-\frac{1}{2}\left(\frac{y^2-2yX\theta+(X\theta)^2}{\sigma_y^2}\theta^\top\Sigma_0^{-1}\theta - 2\theta^\top\Sigma_0^{-1}\mu_0 + \mu_0^\top\Sigma_0^{-1}\mu_0\right)\right)
+\end{aligned}
+$$
+Using \((X\theta)^2 = (X\theta)^\top X\theta = \theta^\top X^\top X \theta\) and \(yX\theta = (yX\theta)^\top = \theta^\top X^\top y\),
+$$
+= \exp\left(-\frac{1}{2}\left(\theta^\top\underbrace{\left(\frac{X^\top X}{\sigma_y^2}+\Sigma_0^{-1}\right)}_{\Sigma_1^{-1}}\theta - 2\theta^\top\underbrace{\left(\frac{X^\top y}{\sigma_y^2}+\Sigma_0^{-1}\mu_0\right)}_{\Sigma^{-1}\mu_1}+\ldots\right)\right)
 $$
 </details>
-<p>The rest of this note only deals with continuous random variables. </p>
-<h2 id="recursive-bayesian-inference-for-parameter-estimation">Recursive Bayesian inference for parameter estimation</h2>
-<p>With prior distribution <script type="math/tex">p(\theta)</script>, measurement model <script type="math/tex">p(y|\theta)</script> and measurements <script type="math/tex">y_{1:N}</script>, the estimation for model parameter <script type="math/tex">\theta</script> is
-<script type="math/tex; mode=display">
-p(\theta|y_{1:N}) = \frac{p(y_{1:N}|\theta) p(\theta)}{p(y_{1:N})}
-</script>
-As measurements are typically received successively, the posterior of one instant becomes the prior of the next.
-<script type="math/tex; mode=display">
+For the multivariate case with \(y\in\mathbb{R}^m\), \(X\in\mathbb{R}^{m\times n}\), \(\epsilon\sim\mathcal{N}(0,\Sigma_y)\), which corresponds to mapping the different lines of \(X\) onto elements of \(y\) through the same linear transformation with coefficients \(\theta\). If batches of input-output measurements are obtained, we could use this equation,
+$$
 \begin{aligned}
-p(\theta|y_1) &= \frac{p(y_1|\theta)p(\theta)}{p(y_1)} \\
-p(\theta|y_{1:2}) &= \frac{p(y_2|\theta)p(\theta|y_1)}{p(y_2)} \\
-&\ldots
+\mu_1 &=\left[X^\top\Sigma_y^{-1}X + \Sigma_0^{-1}\right]^{-1} \left[X^\top\Sigma_y^{-1}y + \Sigma_0^{-1}\mu_0\right] \\
+\Sigma_1 &= \left[X^\top\Sigma_y^{-1}X + \Sigma_0^{-1}\right]^{-1}
 \end{aligned}
-</script>
-Thus we are interested in 
-<script type="math/tex; mode=display">
-p(\theta|y) = \frac{p(y|\theta)p(\theta)}{p(y)}
-</script>
-The denominator is only a normalizing constant so the PDF integrates to 1.</p>
-<p>We can either</p>
-<ul>
-<li>
-<p>compute the denominator, by <em>integrating out</em> over <script type="math/tex">\theta</script>,
-<script type="math/tex; mode=display">
-p(y) = \int p(y|\theta)p(\theta)d\theta
-</script>
-</p>
-</li>
-<li>
-<p>discard the denominator, if working with a quantity only proportionnal to <script type="math/tex">p(\theta|y)</script> is enough,
-<script type="math/tex; mode=display">
-p(\theta|y) \propto p(y|\theta) p(\theta)
-</script>
-</p>
-</li>
-</ul></div>
+$$
+</details></div>
             </div>
         </div>
 

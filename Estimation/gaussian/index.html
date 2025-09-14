@@ -63,6 +63,10 @@
 </li>
                                     
 <li>
+    <a href="../Bayesian_inference_gaussian/" class="dropdown-item">Bayesian inference for Gaussians</a>
+</li>
+                                    
+<li>
     <a href="../Kalman/" class="dropdown-item">Kalman filter</a>
 </li>
                                 </ul>
@@ -130,9 +134,6 @@
                                 <a rel="next" href="../Bayesian_inference/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://github.com/seluj01/notes/edit/master/docs/Estimation/gaussian.md" class="nav-link"><i class="fa-brands fa-github"></i> Edit on GitHub</a>
                             </li>
                     </ul>
                 </div>
@@ -231,12 +232,13 @@ The coefficent <script type="math/tex">\frac{1}{\sqrt{2\pi\sigma^2}}</script> is
 </p>
 <details>
 <summary>Proof for \(Y=AX+b\)</summary>
+Well, this is no proof, but still useful.
 $$
 \begin{aligned}
 \mu_Y &= \mathbb{E}[AX+b] \\
 &= A\mathbb{E}[X] + b \\
 &= A\mu_X + b \\
-\Sigma_Y &= \mathbb{E}[(Y-\bar y)(Y-\bar y)^\top] \\
+\Sigma_Y &= \mathbb{E}[(Y-\mu_y)(Y-\mu_y)^\top] \\
 &= \mathbb{E}[(AX+b - A\mu_X-b)(AX+b - A\mu_X-b)^\top] \\
 &= \mathbb{E}[A(X-\mu_X)(X-\mu_X)^\top A^\top] \\
 &= A\Sigma_X A^\top
@@ -260,7 +262,7 @@ Y = \mu + \Sigma^{1/2} X
 where <script type="math/tex">\Sigma^{1/2}</script> is the positive semidefinite symmetric matrix such that <script type="math/tex">\left(\Sigma^{1/2}\right)^\top \Sigma^{1/2}=\Sigma</script>.<br />
 It may be obtained from the eigendecomposition of <script type="math/tex">\Sigma</script>, in julia that is</p>
 <pre><code>dist = MvNormal(μ, Σ)
-Λ,Q = eigen(Σ) # Σ = QΛ/Q
+Λ,Q = eigen(Σ) # Σ = QΛQ^{-1}
 Σsqrt = Q*diagm(sqrt.(Λ))
 </code></pre>
 <h2 id="confidence-region">Confidence region</h2>
@@ -326,13 +328,9 @@ For a standard normal distribution in dimension 2 \(X = (X_1, X_2)^\top\),
 $$
 \begin{align}
 \mathbb{P}(\|X\| \leq 1) &= \mathbb{P}(X^\top X \leq 1) \\
-&= \mathbb{P}(X_1^2 + X_2^2 \leq 1) \\
-&= \int_{x_1^2+x_2^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}}
+&= \int_{x_1^2+x_2^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}} \\
+&= \int_{x_1^2+x_2^2\leq 1}\frac{1}{2\pi}e^{-\frac{x_1^2+x_2^2}{2}}
 \end{align}
-$$
-whith \(n=2\) and \(x=(x_1, x_2)^\top\),
-$$
-= \int_{x_1^2+x_2^2\leq 1}\frac{1}{2\pi}e^{-\frac{x_1^2+x_2^2}{2}}
 $$
 Change of variable \(x_1=r\cos(\theta)\), \(x_2=r\sin(\theta)\) \(\implies r=\sqrt{x_1^2+x_2^2}\), and first integrating a quantity that does not depend on \(\theta\) from \(0\) to \(2\pi\),
 $$
@@ -357,13 +355,9 @@ For a standard normal distribution in dimension 3 \(X = (X_1, X_2, X_3)^\top\),
 $$
 \begin{align}
 \mathbb{P}(\|X\| \leq 1) &= \mathbb{P}(X^\top X \leq 1) \\
-&= \mathbb{P}(X_1^2 + X_2^2 + X_3^2\leq 1) \\
-&= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}}
+&= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^\frac{n}{2}}e^{-\frac{x^\top x}{2}} \\
+&= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^{3/2}}e^{-\frac{x_1^2+x_2^2+x_3^2}{2}}
 \end{align}
-$$
-whith \(n=3\) and \(x=(x_1, x_2, x_3)^\top\),
-$$
-= \int_{x_1^2+x_2^2+x_3^2\leq 1}\frac{1}{(2\pi)^{3/2}}e^{-\frac{x_1^2+x_2^2+x_3^2}{2}}
 $$
 Change of variable \(x_1=r\sin(\phi)\cos(\theta)\), \(x_2=r\sin(\phi)\sin(\theta)\), \(x_3=r\cos(\phi)\) \(\implies r=\sqrt{x_1^2+x_2^2+x_3^2}\), and first integrating a quantity that does not depend on \(\theta\) from \(0\) to \(2\pi\), and then \(\sin(\phi)\) from \(0\) to \(\pi\) which gives \(-\cos\pi - (-\cos 0) = 2\),
 $$
