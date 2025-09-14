@@ -34,9 +34,9 @@ Leave two spaces at end of line for line break, or use `\`.
 `~~strikethrough text~~` for ~~strikethrough text~~  
 `_italic_` inside `**bold text**` for **bold _italic_ text**  
 `***bold italic text***` for ***bold italic text***  
-`<sup>superscript</sup> text` for <sup>superscript</sup> text  
-`<ins>underlined</ins> text` for <ins>underlined</ins> text
-
+`<sup>superscript text</sup>` for <sup>superscript text</sup>    
+`<ins>underlined text</ins>` for <ins>underlined text</ins>  
+`<span style="color:red">colored text</span>` for <span style="color:red">colored text</span>  
 
 ````
 `code`

@@ -9,8 +9,8 @@ z_k &= H x_k + R
 \end{aligned}
 $$
 
-- state is \(x_k\sim\mathcal{N}(m_k,P_k)\)
-- predicted state is \(x_k\sim\mathcal{N}(m_{k}^\text{pred},P_{k}^\text{pred})\)
+- filtered state is \(\color{blue}{x_k\sim\mathcal{N}(m_k,P_k)}\)
+- predicted state is \(\color{green}{x_k\sim\mathcal{N}(m_{k},P_{k})}\)
 - output is \(z_k\sim\mathcal{N}(y_k,R)\)
 
 <details>
@@ -26,20 +26,47 @@ $$
 </details>
 
 ## Equations
+\(A_d\), \(B_d\), \(H\), \(Q\), \(R\) can be time-varying.
 !!! note "Prediction"
      $$
      \begin{aligned}
-     m_{k+1}^\text{pred} &= A_d m_k + B_du_k \\
-     P_{k+1}^\text{pred} &= A_d P_k A_d^\top + Q
+     \color{green}{m_{k+1}} &= A_d \color{blue}{m_k} + B_du_k \\
+     \color{green}{P_{k+1}} &= A_d \color{blue}{P_k} A_d^\top + Q
      \end{aligned}
      $$
 !!! note "Update"
      $$
      \begin{aligned}
-     S_k &= H P_{k}^\text{pred} H^\top + R \\
-     K_k &= P_{k}^\text{pred} H^\top S_k^{-1} \\
-     m_k &= m_{k}^\text{pred} + K_k (y_k - H m_{k}^\text{pred}) \\
-     P_k &= (I - K_k H) P_{k}^\text{pred} 
+     S_k &= H \color{green}{P_k} H^\top + R \\
+     K_k &= \color{green}{P_k} H^\top S_k^{-1} \\
+     \color{blue}{m_k} &= \color{green}{m_k} + K_k (y_k - H \color{green}{m_k}) \\
+     \color{blue}{P_k} &= (I - K_k H) \color{green}{P_k} 
      \end{aligned}
      $$
-\(A_d\), \(B_d\), \(H\) can be time-varying.
+
+<details>
+$$
+\begin{aligned}
+&\color{blue}{p(x|y)} = \frac{p(y|x)\color{green}{p(x)}}{p(y)} \\
+&\propto \exp\left(-\frac{1}{2}(y-Hx)^\top R^{-1}(y-Hx)\right) \exp\left(-\frac{1}{2}(x-\color{green}{m})^\top \color{green}{P}^{-1}(x-\color{green}{m})\right) \\
+&= \exp\left(-\frac{1}{2}\left( y^\top R^{-1}y-2x^\top H^\top R^{-1}y + x^\top H^\top R^{-1}Hx + x^\top \color{green}{P}^{-1}x-2x^\top \color{green}{P}^{-1}\color{green}{m} + \color{green}{m}^\top \color{green}{P}^{-1}\color{green}{m} \right)\right) \\
+&= \exp\left(-\frac{1}{2}\left( x^\top(\underbrace{\color{green}{P}^{-1} + H^\top R^{-1}H}_{\color{blue}{P}^{-1}})x - 2x^\top (\underbrace{\color{green}{P}^{-1}\color{green}{m}+H^\top R^{-1}y}_{\color{blue}{P}^{-1}\color{blue}{m}}) + \ldots \right)\right)
+\end{aligned}
+$$
+hence
+$$
+\begin{aligned}
+\color{blue}{P} &= (\color{green}{P}^{-1}+H^\top R^{-1}H)^{-1} \\
+&= P-\underbrace{\color{green}{P}H^\top (\underbrace{H\color{green}{P}H^\top+R}_{S})^{-1}}_{K = \color{green}{P}H^\top S^{-1}}H\color{green}{P}
+\end{aligned}
+$$
+where the second line is obtained from the Woodbury identity, and
+$$
+\begin{aligned}
+\color{blue}{m} &= \color{blue}{P} (\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y) \\
+&= \left(\color{green}{P}-\color{green}{P}H^\top (H\color{green}{P}H^\top+R)^{-1}H\color{green}{P}\right) \left(\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y\right) \\
+&= \left(\color{green}{P}-KH\color{green}{P}\right) \left(\color{green}{P}^{-1}\color{green}{m} + H^\top R^{-1}y\right) \\
+&= \color{green}{m}
+\end{aligned}
+$$
+</details>

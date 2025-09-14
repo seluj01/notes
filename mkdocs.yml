@@ -2,7 +2,6 @@ site_name: Notes
 site_url: http://seluj01.github.io/notes/
 site_description: personal notes about engineering
 site_author: jules matz
-repo_url: https://github.com/seluj01/notes#
 
 theme: mkdocs
 
@@ -14,6 +13,7 @@ nav:
   - Estimation:
     - Gaussian: Estimation/gaussian.md
     - Bayesian inference: Estimation/Bayesian_inference.md
+    - Bayesian inference for Gaussians: Estimation/Bayesian_inference_gaussian.md
     - Kalman filter: Estimation/Kalman.md
   - Geometry:
     - Geometry2D:
