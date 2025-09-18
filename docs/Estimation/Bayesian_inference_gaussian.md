@@ -52,34 +52,48 @@ $$
 
 
 <details open>
-<summary>Example \(y=\sum\theta_i x_i + \epsilon = X\theta + \epsilon \)</summary>
-with input vector \(X=(x_1,\ldots,x_n)\), measurement noise \(\epsilon=\mathcal{N}(0,\sigma_y^2)\) and a priori \(\theta\sim\mathcal{N}(\mu_0,\Sigma_0)\),
+<summary>Example \(y = X\theta + \epsilon \)</summary>
+Consider having many measurement for the model \(y=\sum_{i=1}^m\theta_i f_i(u) + \epsilon\), for example
+\begin{align}
+\begin{pmatrix}
+y_1 \\
+\vdots \\
+y_N
+\end{pmatrix} &=
+\begin{pmatrix}
+u_1 & \sin(u_1) \\
+\vdots & \vdots \\
+u_N & \sin(u_N)
+\end{pmatrix}
+\begin{pmatrix}
+\theta_1 \\
+\theta_2
+\end{pmatrix}
++\begin{pmatrix}
+\epsilon_1 \\
+\vdots \\
+\epsilon_N
+\end{pmatrix} \\
+y &= X \theta + \epsilon
+\end{align}
+with measurement noise \(\epsilon_k=\mathcal{N}(0,\sigma_{y,k}^2)\), and independent measurements, so \(\Sigma_y=\text{diag}(\sigma_{y,1}^2,\ldots,\sigma_{y,N}^2)\). A priori is \(\theta\sim\mathcal{N}(\mu_0,\Sigma_0)\),
 $$
 p(\theta|y) \propto \mathcal{N}(\mu_1,\Sigma_1^2)
 $$
-$$
-\begin{aligned}
-\mu_1 &=\left[\frac{X^\top X}{\sigma_y^2} + \Sigma_0^{-1}\right]^{-1} \left[\frac{X^\top y}{\sigma_y^2} + \Sigma_0^{-1}\mu_0\right] \\
-\Sigma_1 &= \left[\frac{X^\top X}{\sigma_y^2} + \Sigma_0^{-1}\right]^{-1}
-\end{aligned}
-$$
-<details>
-$$
-\begin{aligned}
-p(\theta|y) &\propto \exp\left(-\frac{1}{2}\frac{(y-X\theta)^2}{\sigma_y^2}\right) \exp\left(-\frac{1}{2}(\theta-\mu_0)^\top\Sigma_0^{-1}(\theta-\mu_0)\right) \\
-&=\exp\left(-\frac{1}{2}\left(\frac{y^2-2yX\theta+(X\theta)^2}{\sigma_y^2}\theta^\top\Sigma_0^{-1}\theta - 2\theta^\top\Sigma_0^{-1}\mu_0 + \mu_0^\top\Sigma_0^{-1}\mu_0\right)\right)
-\end{aligned}
-$$
-Using \((X\theta)^2 = (X\theta)^\top X\theta = \theta^\top X^\top X \theta\) and \(yX\theta = (yX\theta)^\top = \theta^\top X^\top y\),
-$$
-= \exp\left(-\frac{1}{2}\left(\theta^\top\underbrace{\left(\frac{X^\top X}{\sigma_y^2}+\Sigma_0^{-1}\right)}_{\Sigma_1^{-1}}\theta - 2\theta^\top\underbrace{\left(\frac{X^\top y}{\sigma_y^2}+\Sigma_0^{-1}\mu_0\right)}_{\Sigma^{-1}\mu_1}+\ldots\right)\right)
-$$
-</details>
-For the multivariate case with \(y\in\mathbb{R}^m\), \(X\in\mathbb{R}^{m\times n}\), \(\epsilon\sim\mathcal{N}(0,\Sigma_y)\), which corresponds to mapping the different lines of \(X\) onto elements of \(y\) through the same linear transformation with coefficients \(\theta\). If batches of input-output measurements are obtained, we could use this equation,
 $$
 \begin{aligned}
 \mu_1 &=\left[X^\top\Sigma_y^{-1}X + \Sigma_0^{-1}\right]^{-1} \left[X^\top\Sigma_y^{-1}y + \Sigma_0^{-1}\mu_0\right] \\
 \Sigma_1 &= \left[X^\top\Sigma_y^{-1}X + \Sigma_0^{-1}\right]^{-1}
 \end{aligned}
 $$
+<details>
+$$
+\begin{aligned}
+p(\theta|y) &\propto \exp\left(-\frac{1}{2}(y-X\theta)^\top\Sigma_y^{-1}(y-X\theta)\right) \exp\left(-\frac{1}{2}(\theta-\mu_0)^\top\Sigma_0^{-1}(\theta-\mu_0)\right) \\
+&=\exp\left(-\frac{1}{2}\left(y^\top\Sigma_y^{-1}y - 2\theta^\top X^\top\Sigma_y^{-1}y + \theta^\top X^\top\Sigma_y^{-1}X\theta + \theta^\top\Sigma_0^{-1}\theta - 2\theta^\top\Sigma_0^{-1}\mu_0 + \mu_0^\top\Sigma_0^{-1}\mu_0\right)\right) \\
+&= \exp\left(-\frac{1}{2}\left(\theta^\top\underbrace{\left(X^\top \Sigma_y^{-1} X+\Sigma_0^{-1}\right)}_{\Sigma_1^{-1}}\theta - 2\theta^\top\underbrace{\left(X^\top \Sigma_y^{-1} y+\Sigma_0^{-1}\mu_0\right)}_{\Sigma^{-1}\mu_1}+\ldots\right)\right)
+\end{aligned}
+$$
+</details>
+
 </details>

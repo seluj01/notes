@@ -9,7 +9,7 @@ dist = MvNormal(μ, Σ)
 # Confidence ellipse
 # Compute square root of Σ
 Λ,Q = eigen(Σ) # Σ = QΛ/Q
-Σsqrt = Q*diagm(sqrt.(Λ))
+Σsqrt = Q*diagm(sqrt.(Λ))/Q
 
 # Generate unit circle
 θ = range(0, 2π, 100)'
